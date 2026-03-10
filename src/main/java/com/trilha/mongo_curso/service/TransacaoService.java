@@ -56,7 +56,7 @@ public class TransacaoService {
     }
 
     public List<TransacaoResponse> buscarPorContaIdEStatus(String id, StatusTransacao status){
-        return transacaoRepository.findByContaIdAndStatus(id, status)
+        return transacaoRepository.findByContaIdAndStatusTransacao(id, status)
                 .stream()
                 .map(TransacaoMapper::toResponse)
                 .toList();
@@ -80,7 +80,7 @@ public class TransacaoService {
         Pageable page = PageRequest.of(pagina, tamanho);
 
         return transacaoRepository
-                .findByContaIdPage(id, page)
+                .findByContaId(id, page)
                 .map(TransacaoMapper::toResponse);
     }
 

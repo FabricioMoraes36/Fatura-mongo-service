@@ -40,7 +40,7 @@ public class TransacaoController {
         return transacaoService.buscarPorContaId(id);
     }
 
-    @GetMapping("/tempo/{id}")
+    @PostMapping("/tempo/{id}")
     public List<TransacaoResponse> transacoesPorIdEEspacoDeTempo(
             @PathVariable String id,
             @RequestBody EspacoTempo tempo){
@@ -61,7 +61,7 @@ public class TransacaoController {
         return transacaoService.buscarPorContaIdEValorMaior(id, valor);
     }
 
-    @GetMapping("/valores/{id}")
+    @PostMapping("/valores/{id}")
     public List<TransacaoResponse> transacaoPorIdEEspacoValor(
             @PathVariable String id,
             @RequestBody DiferencaValor diferenca){

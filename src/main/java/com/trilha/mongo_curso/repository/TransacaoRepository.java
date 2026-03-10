@@ -17,10 +17,10 @@ public interface TransacaoRepository extends MongoRepository<Transacao,String> {
 
     List<Transacao> findByContaId(String id);
     List<Transacao> findByContaIdAndDataHoraBetween (String id, EspacoTempo tempo);
-    List<Transacao> findByContaIdAndStatus (String id, StatusTransacao status);
+    List<Transacao> findByContaIdAndStatusTransacao(String id, StatusTransacao status);
     List<Transacao> findByContaIdAndValorGreaterThan (String id, BigDecimal valor);
     List<Transacao> findByContaIdAndValorBetween (String id, DiferencaValor diferencaValor);
 
-    Page<Transacao> findByContaIdPage(String id, Pageable pageable);
+    Page<Transacao> findByContaId(String id, Pageable pageable);
 
 }
