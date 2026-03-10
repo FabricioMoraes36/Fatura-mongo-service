@@ -1,4 +1,4 @@
-package com.trilha.mongo_curso.dto;
+package com.trilha.mongo_curso.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,64 +1,78 @@
 package com.trilha.mongo_curso.controller;
 
-import com.trilha.mongo_curso.dto.DiferencaValor;
-import com.trilha.mongo_curso.dto.EspacoTempo;
+import com.trilha.mongo_curso.dto.TransacaoRequest;
+import com.trilha.mongo_curso.dto.TransacaoResponse;
 import com.trilha.mongo_curso.enumerated.StatusTransacao;
-import com.trilha.mongo_curso.model.Transacao;
-import com.trilha.mongo_curso.repository.TransacaoRepository;
+import com.trilha.mongo_curso.model.DiferencaValor;
+import com.trilha.mongo_curso.model.EspacoTempo;
+import com.trilha.mongo_curso.service.TransacaoService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 @RestController
 @RequestMapping("/transacoes")
 public class TransacaoController {
 
-    private final TransacaoRepository transacaoRepository;
+    private final TransacaoService transacaoService;
 
-    public TransacaoController(TransacaoRepository transacaoRepository) {
-        this.transacaoRepository = transacaoRepository;
+    public TransacaoController(TransacaoService transacaoService) {
+        this.transacaoService = transacaoService;
     }
 
     @PostMapping("/criar")
-    public Transacao criarTransacao(@RequestBody Transacao transacao){
-        return transacaoRepository.save(transacao);
+    public ResponseEntity<TransacaoResponse> criarTransacao(@RequestBody TransacaoRequest request){
+        TransacaoResponse response = transacaoService.criarTransacao(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/todas")
-    public List<Transacao> transacoes(){
-        return transacaoRepository.findAll();
+    public List<TransacaoResponse> transacoes(){
+        return transacaoService.buscarTodas();
     }
 
     @GetMapping("/{id}")
-    public List<Transacao> transacoesPorId (@PathVariable String id){
-        return transacaoRepository.findByContaid(id);
+    public List<TransacaoResponse> transacoesPorId(@PathVariable String id){
+        return transacaoService.buscarPorContaId(id);
     }
 
     @GetMapping("/tempo/{id}")
-    public List<Transacao> transacoesPorIdEEspacoDeTempo(@PathVariable String id, @RequestBody EspacoTempo tempo){
-        return transacaoRepository.findByContaIdAndDataHoraBetween(id,tempo);
+    public List<TransacaoResponse> transacoesPorIdEEspacoDeTempo(
+            @PathVariable String id,
+            @RequestBody EspacoTempo tempo){
+        return transacaoService.buscarPorContaIdEPeriodo(id, tempo);
     }
 
     @GetMapping("/status/{id}")
-    public List<Transacao> transacaoPorIdPorStatus (String id, StatusTransacao statusTransacao){
-        return transacaoRepository.findByContaIdAndStatus(id,statusTransacao);
+    public List<TransacaoResponse> transacaoPorIdPorStatus(
+            @PathVariable String id,
+            @RequestParam StatusTransacao status){
+        return transacaoService.buscarPorContaIdEStatus(id, status);
     }
 
     @GetMapping("/valorMaior/{id}")
-    public List<Transacao> transacaoPorContaIdEValorMaior(String id, BigDecimal valor){
-        return transacaoRepository.findByContaIdAndValorGreaterThan(id, valor);
+    public List<TransacaoResponse> transacaoPorContaIdEValorMaior(
+            @PathVariable String id,
+            @RequestParam BigDecimal valor){
+        return transacaoService.buscarPorContaIdEValorMaior(id, valor);
     }
 
     @GetMapping("/valores/{id}")
-    public List<Transacao> transacaoPorIdEEspacoValor(String id, DiferencaValor difrenca){
-        return transacaoRepository.findByContaIdAndValorBetween(id, difrenca);
+    public List<TransacaoResponse> transacaoPorIdEEspacoValor(
+            @PathVariable String id,
+            @RequestBody DiferencaValor diferenca){
+        return transacaoService.buscarPorContaIdEIntervaloValor(id, diferenca);
     }
 
     @GetMapping("/paginado/{id}")
-    public Page<Transacao> transacaoPaginada(@PathVariable String id,@RequestParam(defaultValue = "0") int paginaInicio, @RequestParam(defaultValue = "10") int paginaTamanho){
-        return transacaoRepository.findByContaId(id,paginaInicio,paginaTamanho);
+    public Page<TransacaoResponse> transacaoPaginada(
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho){
+        return transacaoService.buscarPaginado(id, pagina, tamanho);
     }
 }

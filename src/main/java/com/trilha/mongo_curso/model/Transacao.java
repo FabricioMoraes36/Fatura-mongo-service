@@ -25,7 +25,7 @@ public class Transacao {
         this.id = id;
         this.contaId = contaId;
         this.valor = valor;
-        this.tipoTransacao = tipoTransacao;
+        this.tipoTransacao = TipoTransacao.PIX;
         this.dataHora = Instant.now();
         this.statusTransacao = StatusTransacao.PENDENTE;
     }
