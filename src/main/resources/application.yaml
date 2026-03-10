@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mongo-curso
+  threads:
+    virtual:
+      enabled: true
+  mongodb:
+    uri: mongodb://localhost:27017
+    database: meuBanco
