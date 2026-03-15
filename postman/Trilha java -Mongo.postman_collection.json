@@ -1,0 +1,233 @@
+{
+  "info": {
+    "_postman_id": "b5fe1d58-c112-4ca2-a430-007bbf4ec0ff",
+    "name": "Trilha java -Mongo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46291910"
+  },
+  "item": [
+    {
+      "name": "Criar transações",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"contaId\": \"conta-123\",\r\n    \"valor\": 150.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/transacoes/criar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "criar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar todas transações",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transacoes/todas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "todas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por id da conta",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transacoes/conta-123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "conta-123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por periodo de tempo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"inicio\": \"2026-01-01T00:00:00Z\",\r\n    \"fim\": \"2026-03-15T23:59:59Z\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/transacoes/tempo/conta-123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "tempo",
+            "conta-123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por id e status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transacoes/status/conta-123?status=PENDENTE",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "status",
+            "conta-123"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "PENDENTE"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por valores maiores que ?",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transacoes/valorMaior/conta-123?valor=100.00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "valorMaior",
+            "conta-123"
+          ],
+          "query": [
+            {
+              "key": "valor",
+              "value": "100.00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por intervalo de valor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"valorInicial\": 50.00,\r\n    \"valorFinal\": 200.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/transacoes/valores/conta-123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "valores",
+            "conta-123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar paginado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transacoes/paginado/conta-123?pagina=0&tamanho=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transacoes",
+            "paginado",
+            "conta-123"
+          ],
+          "query": [
+            {
+              "key": "pagina",
+              "value": "0"
+            },
+            {
+              "key": "tamanho",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "idx",
+      "value": ""
+    }
+  ]
+}
