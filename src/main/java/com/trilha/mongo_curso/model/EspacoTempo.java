@@ -13,9 +13,8 @@ public class EspacoTempo {
     private Instant inicio;
     private Instant fim;
 
-    public EspacoTempo() {
-    }
-
     public EspacoTempo(Instant inicio, Instant fim) {
+        this.inicio = inicio;
+        this.fim = fim;
     }
 }

@@ -10,17 +10,17 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 @Repository
 public interface TransacaoRepository extends MongoRepository<Transacao,String> {
 
     List<Transacao> findByContaId(String id);
-    List<Transacao> findByContaIdAndDataHoraBetween (String id, EspacoTempo tempo);
+    List<Transacao> findByContaIdAndDataHoraBetween(String id, Instant inicio, Instant fim);
     List<Transacao> findByContaIdAndStatusTransacao(String id, StatusTransacao status);
     List<Transacao> findByContaIdAndValorGreaterThan (String id, BigDecimal valor);
-    List<Transacao> findByContaIdAndValorBetween (String id, DiferencaValor diferencaValor);
-
+    List<Transacao> findByContaIdAndValorBetween(String id, BigDecimal valorInicial, BigDecimal valorFinal);
     Page<Transacao> findByContaId(String id, Pageable pageable);
 
 }
