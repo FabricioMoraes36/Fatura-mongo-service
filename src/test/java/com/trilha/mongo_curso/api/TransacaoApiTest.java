@@ -1,6 +1,7 @@
 package com.trilha.mongo_curso.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.trilha.mongo_curso.controller.TransacaoController;
 import com.trilha.mongo_curso.dto.TransacaoRequest;
 import com.trilha.mongo_curso.dto.TransacaoResponse;
@@ -41,7 +42,8 @@ public class TransacaoApiTest {
 
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     @Mock
     private TransacaoService service;

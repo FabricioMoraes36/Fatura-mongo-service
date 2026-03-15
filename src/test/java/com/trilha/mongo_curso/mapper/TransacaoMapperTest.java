@@ -1,4 +1,4 @@
-package com.trilha.mongo_curso.mappe;
+package com.trilha.mongo_curso.mapper;
 
 import com.trilha.mongo_curso.dto.TransacaoRequest;
 import com.trilha.mongo_curso.dto.TransacaoResponse;
@@ -49,5 +49,20 @@ public class TransacaoMapperTest {
         assertEquals(0, new BigDecimal("99.99").compareTo(resp.getValor()), "Valor deve ser mapeado");
         assertEquals(now, resp.getDataHora(), "DataHora deve ser mapeada");
         assertEquals(StatusTransacao.APROVADA, resp.getStatusTransacao(), "Status deve ser mapeado");
+    }
+
+    @Test
+    void toTransacao_shouldSetDefaultTipoAndStatus() {
+        // Arrange
+        TransacaoRequest req = new TransacaoRequest();
+        req.setContaId("abc-123");
+        req.setValor(new BigDecimal("100.00"));
+
+        // Act
+        Transacao t = TransacaoMapper.toTransacao(req);
+
+        // Assert
+        assertEquals(TipoTransacao.PIX, t.getTipoTransacao(), "TipoTransacao padrão deve ser PIX");
+        assertEquals(StatusTransacao.PENDENTE, t.getStatusTransacao(), "StatusTransacao padrão deve ser PENDENTE");
     }
 }
