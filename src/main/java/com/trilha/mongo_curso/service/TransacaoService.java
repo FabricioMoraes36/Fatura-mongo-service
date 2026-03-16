@@ -3,7 +3,7 @@ package com.trilha.mongo_curso.service;
 import com.trilha.mongo_curso.dto.TransacaoRequest;
 import com.trilha.mongo_curso.dto.TransacaoResponse;
 import com.trilha.mongo_curso.enumerated.StatusTransacao;
-import com.trilha.mongo_curso.mappe.TransacaoMapper;
+import com.trilha.mongo_curso.mapper.TransacaoMapper;
 import com.trilha.mongo_curso.model.DiferencaValor;
 import com.trilha.mongo_curso.model.EspacoTempo;
 import com.trilha.mongo_curso.model.Transacao;
@@ -26,12 +26,10 @@ public class TransacaoService {
         this.transacaoRepository = transacaoRepository;
     }
 
-    public TransacaoResponse criarTransacao(TransacaoRequest request){
+    public TransacaoResponse criarTransacao(TransacaoRequest request) {
         Transacao transacao = TransacaoMapper.toTransacao(request);
         transacao.setDataHora(Instant.now());
-
-        Transacao salva = transacaoRepository.save(transacao);
-        return TransacaoMapper.toResponse(salva);
+        return TransacaoMapper.toResponse(transacaoRepository.save(transacao));
     }
 
     public List<TransacaoResponse> buscarTodas(){
@@ -49,7 +47,7 @@ public class TransacaoService {
     }
 
     public List<TransacaoResponse> buscarPorContaIdEPeriodo(String id, EspacoTempo tempo){
-        return transacaoRepository.findByContaIdAndDataHoraBetween(id, tempo)
+        return transacaoRepository.findByContaIdAndDataHoraBetween(id, tempo.getInicio(), tempo.getFim())
                 .stream()
                 .map(TransacaoMapper::toResponse)
                 .toList();
@@ -70,7 +68,7 @@ public class TransacaoService {
     }
 
     public List<TransacaoResponse> buscarPorContaIdEIntervaloValor(String id, DiferencaValor diferenca){
-        return transacaoRepository.findByContaIdAndValorBetween(id, diferenca)
+        return transacaoRepository.findByContaIdAndValorBetween(id, diferenca.getValorInicial(), diferenca.getValorFinal())
                 .stream()
                 .map(TransacaoMapper::toResponse)
                 .toList();

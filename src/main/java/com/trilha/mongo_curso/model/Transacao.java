@@ -18,18 +18,6 @@ import java.time.LocalDateTime;
 @Document("transacoes")
 public class Transacao {
 
-    public Transacao() {
-    }
-
-    public Transacao(String id, String contaId, BigDecimal valor, TipoTransacao tipoTransacao, StatusTransacao statusTransacao) {
-        this.id = id;
-        this.contaId = contaId;
-        this.valor = valor;
-        this.tipoTransacao = TipoTransacao.PIX;
-        this.dataHora = Instant.now();
-        this.statusTransacao = StatusTransacao.PENDENTE;
-    }
-
     @Id
     private String id;
     private String contaId;

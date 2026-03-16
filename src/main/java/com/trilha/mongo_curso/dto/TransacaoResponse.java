@@ -2,10 +2,7 @@ package com.trilha.mongo_curso.dto;
 
 import com.trilha.mongo_curso.enumerated.StatusTransacao;
 import com.trilha.mongo_curso.enumerated.TipoTransacao;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -13,7 +10,8 @@ import java.time.Instant;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransacaoResponse {
 
     private BigDecimal valor;
